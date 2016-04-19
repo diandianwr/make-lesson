@@ -1,10 +1,11 @@
 # count words
-.PHONY: dats
+
+.PHONY: dats #not a file to be  create
 dats: isles.dat  abyss.dat last.dat analysis.zip 
 
 
-isles.dat : books/isles.txt
-	python wordcount.py books/isles.txt isles.dat
+isles.dat : books/isles.txt wordcount.py
+	python wordcount.py $< $@
 #default will just run the first object
 	
 abyss.dat : books/abyss.txt
@@ -15,7 +16,7 @@ last.dat : books/last.txt
 	python wordcount.py books/last.txt last.dat
 
 analysis.zip : isles.dat abyss.dat last.dat
-	zip analysis.zip isles.dat abyss.dat last.dat
+	zip $@ $^
 	
 .PHONY: clean	
 clean:
